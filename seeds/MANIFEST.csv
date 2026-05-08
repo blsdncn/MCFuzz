@@ -1,0 +1,15 @@
+filename,kind,source_run,source_queue_id,size_bytes,reason
+handshake-only.bin,original,generated,NA,47,default AFLNet campaign smoke seed
+play-chat.bin,original,generated,NA,96,full-stack replay smoke seed
+play-chat-hello.bin,original,generated,NA,76,chat variant seed
+play-chat-multi.bin,original,generated,NA,116,multi-chat and command variant seed
+play-chat-replay.bin,original,generated,NA,65,replay-form chat seed
+play-command-help.bin,original,generated,NA,54,command variant seed
+high-impact-01-state-aware-12h-id000001.bin,high-impact-aflnet,20260503T054121Z-state-aware-43200s,1,79,+cov queue entry from state-aware 12h run
+high-impact-02-state-aware-12h-id000002.bin,high-impact-aflnet,20260503T054121Z-state-aware-43200s,2,8,+cov queue entry from state-aware 12h run
+high-impact-03-code-only-12h-id000001.bin,high-impact-aflnet,20260503T054505Z-code-only-43200s,1,49,+cov queue entry from code-only 12h run
+high-impact-04-code-only-12h-id000002.bin,high-impact-aflnet,20260503T054505Z-code-only-43200s,2,47,+cov queue entry from code-only 12h run
+high-impact-05-state-only-12h-id000001.bin,high-impact-aflnet,20260503T054506Z-state-only-43200s,1,45,+cov queue entry from state-only 12h run
+high-impact-06-state-only-12h-id000003.bin,high-impact-aflnet,20260503T054506Z-state-only-43200s,3,29,+cov queue entry from state-only 12h run
+high-impact-07-state-aware-24h-id000001.bin,high-impact-aflnet,20260505T045009Z-state-aware-86400s,1,222,+cov queue entry from clean state-aware 24h run
+high-impact-08-state-aware-24h-id000002.bin,high-impact-aflnet,20260505T045009Z-state-aware-86400s,2,30,+cov queue entry from clean state-aware 24h run

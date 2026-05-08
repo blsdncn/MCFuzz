@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+exec java -jar "/home/vishv/Projects/Velocity/build/jazzer/tools/jazzer-0.24.0.jar" "$@"

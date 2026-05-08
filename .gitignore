@@ -1,0 +1,85 @@
+# Local/editor noise
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+.git/
+
+# Local agent/planning state (not part of artifact submission)
+.pi/
+
+# Build outputs and dependency caches
+.gradle/
+.gradle-container/
+**/.gradle/
+# Build outputs — ignore contents but allow exceptions for checked-in tools
+**/build/*
+!**/build/jazzer/tools/
+!**/build/jazzer/tools/*
+**/target/
+**/out/
+**/node_modules/
+prismarinejs/*/package-lock.json
+prismarinejs/*/npm-shrinkwrap.json
+**/.pytest_cache/
+**/__pycache__/
+*.class
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+!velocity/native/src/main/resources/**/*.so
+!velocity/native/src/main/resources/**/*.dylib
+
+# Generated fuzzing/evaluation runs
+campaign-runs/
+compat-runs/
+coverage-runs/
+eval-runs/
+slurm-jobs/
+.tmp-*/
+FTL/investigations/evaluation-artifact-deep-dive/jazzer-comparison/spikes/
+evidence-packet/
+evidence-packet.zip
+
+# Runtime logs and transient outputs
+test-path-results*.log
+*.pid
+*.exec
+*.profraw
+*.profdata
+hs_err_pid*.log
+replay_pid*.log
+
+# AFL/AFLNet generated queues when created outside run dirs
+aflnet-out/
+queue/
+crashes/
+hangs/
+replayable-hangs/
+
+# Jazzer generated runtime artifacts
+**/jazzer-stderr.log
+**/jazzer-faults.txt
+**/jazzer-artifacts.txt
+**/jazzer-coverage
+**/reproducer*.java
+**/crash-*
+**/artifact_prefix*/
+
+# Large/reference-only clones should not be committed in the curated submission
+# unless explicitly moved into the submission manifest as required source.
+jacoco/
+jazzer/
+picolimbo/
+prismarinejs/minecraft-data/
+prismarinejs/mineflayer/
+
+# Local scratch files
+100qs/
+UBIQUITOUS_LANGUAGE.md
+*.tmp
+*.bak
+*.orig

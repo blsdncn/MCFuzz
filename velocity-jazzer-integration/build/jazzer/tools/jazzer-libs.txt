@@ -1,0 +1,8 @@
+/home/vishv/Projects/Velocity/proxy/build/classes/java/main
+/home/vishv/Projects/Velocity/proxy/build/resources/main
+/home/vishv/Projects/Velocity/proxy/build/classes/java/test
+/home/vishv/Projects/Velocity/proxy/build/resources/test
+/home/vishv/Projects/Velocity/api/build/classes/java/main
+/home/vishv/Projects/Velocity/api/build/resources/main
+/home/vishv/Projects/Velocity/native/build/classes/java/main
+/home/vishv/Projects/Velocity/native/build/resources/main
