@@ -9,16 +9,19 @@ if [[ $# -eq 0 ]]; then
 fi
 
 # Run as the invoking user so generated campaign/coverage artifacts remain editable on the host.
-# Prefer the host Gradle cache when available because several project scripts intentionally use --offline.
 tty_args=()
 if [[ -t 0 && -t 1 ]]; then
   tty_args=(-it)
 fi
 
+# Default to a repo-local Gradle cache. Auto-mounting the host ~/.gradle cache can fail with
+# journal lock contention when another Gradle process is active. Opt in explicitly with:
+#   MCFUZZ_DOCKER_GRADLE_HOME="$HOME/.gradle" scripts/docker-run-aflnet-experiment.sh ...
 gradle_home="/work/.gradle-container"
 gradle_volume_args=()
-host_gradle_home="${MCFUZZ_DOCKER_GRADLE_HOME:-$HOME/.gradle}"
-if [[ -d "$host_gradle_home" ]]; then
+if [[ -n "${MCFUZZ_DOCKER_GRADLE_HOME:-}" ]]; then
+  host_gradle_home="$MCFUZZ_DOCKER_GRADLE_HOME"
+  mkdir -p "$host_gradle_home"
   gradle_home="/host-gradle-cache"
   gradle_volume_args=(--volume "$host_gradle_home:/host-gradle-cache")
 fi
