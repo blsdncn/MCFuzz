@@ -27,14 +27,16 @@ docker run --rm \
 
 ```bash
 docker run --rm \
+  -e TIME_LIMIT=30 \
   -v "$PWD/jazzer-outputs:/work/velocity-jazzer-integration/build/jazzer" \
   mcfuzz-aflnet-experiment:ready \
-  TIME_LIMIT=30 make smoke-jazzer-stateful
+  make smoke-jazzer-stateful
 
 docker run --rm \
+  -e TIME_LIMIT=30 \
   -v "$PWD/jazzer-outputs:/work/velocity-jazzer-integration/build/jazzer" \
   mcfuzz-aflnet-experiment:ready \
-  TIME_LIMIT=30 make smoke-jazzer-stateless
+  make smoke-jazzer-stateless
 ```
 
 ### Run full regression suite

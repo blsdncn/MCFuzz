@@ -76,27 +76,15 @@ fi
 require_file "$TARGET_CLASS_FILE"
 
 echo "[3/7] Run Jazzer with JaCoCo javaagent (MODE=$MODE, TIME_LIMIT=$TIME_LIMIT)"
-PREV_JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS-}"
-AGENT_OPTS="-javaagent:$JACOCO_AGENT_JAR=destfile=$JACOCO_EXEC,append=false,output=file,inclnolocationclasses=true"
-if [[ -n "$PREV_JAVA_TOOL_OPTIONS" ]]; then
-  export JAVA_TOOL_OPTIONS="$PREV_JAVA_TOOL_OPTIONS $AGENT_OPTS"
-else
-  export JAVA_TOOL_OPTIONS="$AGENT_OPTS"
-fi
+AGENT_OPTS="-javaagent:$JACOCO_AGENT_JAR=destfile=$JACOCO_EXEC,append=false,output=file,inclnolocationclasses=true,dumponexit=true"
 
 set +e
 (
   cd "$JAZZER_ROOT"
-  TIME_LIMIT="$TIME_LIMIT" RESET_OUTPUTS="$RESET_OUTPUTS" bash "$RUN_SCRIPT"
+  TIME_LIMIT="$TIME_LIMIT" RESET_OUTPUTS="$RESET_OUTPUTS" EXTRA_JAVA_OPTS="$AGENT_OPTS" bash "$RUN_SCRIPT"
 ) >"$RUN_LOG" 2>&1
 JAZZER_EXIT=$?
 set -e
-
-if [[ -n "$PREV_JAVA_TOOL_OPTIONS" ]]; then
-  export JAVA_TOOL_OPTIONS="$PREV_JAVA_TOOL_OPTIONS"
-else
-  unset JAVA_TOOL_OPTIONS || true
-fi
 
 echo "[4/7] Capture Jazzer outputs"
 mkdir -p "$SPIKE_DIR/jazzer-work"

@@ -13,6 +13,7 @@ TIME_LIMIT="${TIME_LIMIT:-21600}"
 JAZZER_JAR="${JAZZER_JAR:-${ROOT_DIR}/build/jazzer/tools/jazzer-0.24.0.jar}"
 GRADLE_MODULE_CACHE="${GRADLE_MODULE_CACHE:-${HOME}/.gradle/caches/modules-2/files-2.1}"
 RESET_OUTPUTS="${RESET_OUTPUTS:-1}"
+EXTRA_JAVA_OPTS="${EXTRA_JAVA_OPTS:-}"
 
 mkdir -p "${ARTIFACTS_DIR}" "${LOG_DIR}" "${CORPUS_DIR}" "${COVERAGE_DIR}"
 
@@ -104,7 +105,7 @@ JAZZER_STDERR_LOG="${LOG_DIR}/jazzer-stderr.log"
 JAZZER_INSTRUMENTATION_LOG="${LOG_DIR}/jazzer-instrumentation.log"
 
 set +e
-java -cp "${JAZZER_JAR}:${CLASSPATH_RAW}" com.code_intelligence.jazzer.Jazzer \
+java ${EXTRA_JAVA_OPTS} -cp "${JAZZER_JAR}:${CLASSPATH_RAW}" com.code_intelligence.jazzer.Jazzer \
   --target_class="${TARGET_CLASS}" \
   --reproducer_path="${ARTIFACTS_DIR}" \
   --coverage_report="${COVERAGE_DIR}/jazzer-coverage" \

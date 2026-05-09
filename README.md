@@ -32,15 +32,17 @@ Campaign artifacts are written to `./campaign-runs/` on your host.
 ```bash
 # Stateful Jazzer
 docker run --rm \
+  -e TIME_LIMIT=30 \
   -v "$PWD/jazzer-outputs:/work/velocity-jazzer-integration/build/jazzer" \
   mcfuzz-aflnet-experiment:ready \
-  TIME_LIMIT=30 make smoke-jazzer-stateful
+  make smoke-jazzer-stateful
 
 # Stateless Jazzer
 docker run --rm \
+  -e TIME_LIMIT=30 \
   -v "$PWD/jazzer-outputs:/work/velocity-jazzer-integration/build/jazzer" \
   mcfuzz-aflnet-experiment:ready \
-  TIME_LIMIT=30 make smoke-jazzer-stateless
+  make smoke-jazzer-stateless
 ```
 
 ### Run the full regression suite

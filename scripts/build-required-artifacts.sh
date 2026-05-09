@@ -56,6 +56,15 @@ require_file "$ROOT/aflnet/afl-fuzz"
 
 if [[ -d "$ROOT/velocity-jazzer-integration" ]]; then
   require_file "$ROOT/velocity-jazzer-integration/build/jazzer/tools/jazzer-0.24.0.jar"
+
+  run_gradle_local_then_online "velocity_jazzer_test_classes" \
+    "$ROOT/velocity-jazzer-integration" :velocity-proxy:testClasses
+  require_file "$ROOT/velocity-jazzer-integration/proxy/build/classes/java/test/com/velocitypowered/proxy/fuzz/VelocityProtocolStateFuzzTarget.class"
+  require_file "$ROOT/velocity-jazzer-integration/proxy/build/classes/java/test/com/velocitypowered/proxy/fuzz/VelocityProtocolStateless.class"
+
+  echo "[jacoco] pre-stage agent + cli jars"
+  "$ROOT/scripts/resolve-jacoco-outer-jar.sh" >/dev/null
+  "$ROOT/scripts/resolve-jacoco-cli-jar.sh"   >/dev/null
 fi
 
 echo "required_artifacts_status=PASS"
