@@ -43,6 +43,7 @@ slurm-jobs/
 FTL/investigations/evaluation-artifact-deep-dive/jazzer-comparison/spikes/
 evidence-packet/
 evidence-packet.zip
+release-artifacts/
 
 # Runtime logs and transient outputs
 test-path-results*.log
