@@ -1,0 +1,73 @@
+# Config version. Do not change this
+config-version = "2.7"
+
+# Bind to all addresses on port 25565
+bind = "0.0.0.0:25565"
+
+motd = "<#09add3>AFLNet Velocity Fuzzing Target"
+show-max-players = 500
+
+# Offline mode for fuzzing (no Mojang auth)
+online-mode = false
+
+# Disable key authentication (not needed in offline mode)
+force-key-authentication = false
+
+prevent-client-proxy-connections = false
+player-info-forwarding-mode = "NONE"
+forwarding-secret-file = "forwarding.secret"
+announce-forge = false
+kick-existing-players = false
+ping-passthrough = "DISABLED"
+sample-players-in-ping = false
+enable-player-address-logging = true
+
+[packet-limiter]
+interval = 7
+packets-per-second = 500
+bytes-per-second = -1
+
+# Backend servers — these don't need to be reachable for handshake/status fuzzing
+# but will be needed for Play state seeds. Configure flying-squid here later.
+[servers]
+lobby = "127.0.0.1:30066"
+
+# Try list — player will be kicked if no backend is available
+try = [
+    "lobby"
+]
+
+[forced-hosts]
+
+[advanced]
+# Disable compression entirely for AFLNet replay compatibility
+compression-threshold = -1
+compression-level = -1
+
+# Reduce rate limits for fuzzing (allow rapid connections)
+login-ratelimit = 0
+connection-timeout = 5000
+read-timeout = 30000
+haproxy-protocol = false
+tcp-fast-open = false
+bungee-plugin-message-channel = true
+show-ping-requests = false
+failover-on-unexpected-server-disconnect = true
+announce-proxy-commands = true
+log-command-executions = false
+log-player-connections = true
+accepts-transfers = false
+enable-reuse-port = false
+
+# Disable command rate limiting for fuzzing
+command-rate-limit = 0
+forward-commands-if-rate-limited = false
+kick-after-rate-limited-commands = 0
+tab-complete-rate-limit = 0
+kick-after-rate-limited-tab-completes = 0
+
+[query]
+enabled = false
+port = 25565
+map = "Velocity"
+show-plugins = false
