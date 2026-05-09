@@ -79,7 +79,16 @@ TEST_ARGS=(
 set +e
 (
   cd "$VELOCITY_DIR"
-  env -u __AFL_SHM_ID -u AFLNET_REUSE_SHM_ID ./gradlew "${TEST_ARGS[@]}"
+  env -u __AFL_SHM_ID -u AFLNET_REUSE_SHM_ID ./gradlew "${TEST_ARGS[@]}" || {
+    echo "[velocity-javaagent-compat] offline test failed; trying online" >>"$LOG"
+    env -u __AFL_SHM_ID -u AFLNET_REUSE_SHM_ID ./gradlew :velocity-proxy:test \
+      --tests com.velocitypowered.proxy.protocol.PacketRegistryTest \
+      --tests com.velocitypowered.proxy.connection.client.HandshakeSessionHandlerTest \
+      --tests com.velocitypowered.proxy.protocol.ProtocolUtilsTest \
+      --no-daemon \
+      --rerun-tasks \
+      --init-script "$INIT_SCRIPT"
+  }
 ) >"$LOG" 2>&1
 gradle_exit=$?
 set -e
