@@ -80,7 +80,7 @@ Common mount points:
 | Container path | Purpose |
 |---|---|
 | `/work/campaign-runs` | AFLNet fuzzing campaigns |
-| `/work/velocity-jazzer-integration/build/jazzer` | Jazzer outputs |
+| `/work/velocity-jazzer-integration/build/jazzer-jacoco-feasibility` | Jazzer smoke outputs (feasibility-summary.txt, jazzer.exec, JaCoCo XML/HTML report) |
 | `/work/outputs` | Generic output directory |
 
 If you omit `-v`, all artifacts are lost when the container exits.
