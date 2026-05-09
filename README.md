@@ -7,7 +7,7 @@ Fuzzes Velocity Minecraft proxy protocol handling with two complementary engines
 
 ## Quickstart (recommended)
 
-Download the prebuilt Docker image and load it:
+Download the prebuilt Docker image and load it
 
 ```bash
 sha256sum -c mcfuzz-aflnet-experiment-ready-*.tar.gz.sha256
