@@ -167,8 +167,15 @@ case "$JAZZER_EXIT" in
   *) JAZZER_EXIT_CLASS="unexpected" ;;
 esac
 
+JAZZER_STDERR="$SPIKE_DIR/jazzer-work/jazzer-stderr.log"
+FUZZ_ITERATIONS=0
+if [[ -f "$JAZZER_STDERR" ]]; then
+  FUZZ_ITERATIONS="$(grep -oE 'Done [0-9]+ runs' "$JAZZER_STDERR" | grep -oE '[0-9]+' | tail -n1)"
+  FUZZ_ITERATIONS="${FUZZ_ITERATIONS:-0}"
+fi
+
 STATUS="FAIL"
-if [[ "$REPORT_EXIT" -eq 0 && "$EXEC_SIZE" -gt 0 && "$XML_SIZE" -gt 0 && "$COUNTER_LINES" -gt 0 && "$JAZZER_EXIT_CLASS" != "unexpected" ]]; then
+if [[ "$REPORT_EXIT" -eq 0 && "$EXEC_SIZE" -gt 0 && "$XML_SIZE" -gt 0 && "$COUNTER_LINES" -gt 0 && "$JAZZER_EXIT_CLASS" != "unexpected" && "$FUZZ_ITERATIONS" -gt 0 ]]; then
   STATUS="PASS"
 fi
 
@@ -185,6 +192,7 @@ fi
   echo "jacoco_xml=$JACOCO_XML"
   echo "jacoco_xml_size=$XML_SIZE"
   echo "jacoco_xml_counter_lines=$COUNTER_LINES"
+  echo "fuzz_iterations=$FUZZ_ITERATIONS"
   echo "jazzer_run_log=$RUN_LOG"
   echo "jacoco_report_log=$JACOCO_REPORT_LOG"
   echo "feasibility_status=$STATUS"

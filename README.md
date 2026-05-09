@@ -68,7 +68,7 @@ ls /work
 
 # Run a 10-minute AFLNet campaign
 docker run --rm \
-  -v "$PWD/outputs:/work/outputs" \
+  -v "$PWD/campaign-runs:/work/campaign-runs" \
   mcfuzz-aflnet-experiment:ready \
   bash -lc '
     CAMPAIGN_SECONDS=600 \
@@ -78,7 +78,8 @@ docker run --rm \
 
 # Run longer Jazzer campaigns
 docker run --rm \
-  -v "$PWD/outputs:/work/outputs" \
+  -e WORK_DIR=/work/jazzer-campaign \
+  -v "$PWD/jazzer-campaign:/work/jazzer-campaign" \
   mcfuzz-aflnet-experiment:ready \
   bash -lc '
     cd /work/velocity-jazzer-integration

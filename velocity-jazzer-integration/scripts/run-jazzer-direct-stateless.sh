@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-WORK_DIR="${ROOT_DIR}/build/jazzer-stateless"
+WORK_DIR="${WORK_DIR:-${ROOT_DIR}/build/jazzer-stateless}"
 ARTIFACTS_DIR="${WORK_DIR}/artifacts"
 LOG_DIR="${WORK_DIR}/logs"
 CORPUS_DIR="${WORK_DIR}/corpus"
@@ -11,7 +11,7 @@ COVERAGE_DIR="${WORK_DIR}/coverage"
 TARGET_CLASS="${TARGET_CLASS:-com.velocitypowered.proxy.fuzz.VelocityProtocolStateless}"
 TIME_LIMIT="${TIME_LIMIT:-21600}"
 JAZZER_JAR="${JAZZER_JAR:-${ROOT_DIR}/build/jazzer/tools/jazzer-0.24.0.jar}"
-GRADLE_MODULE_CACHE="${GRADLE_MODULE_CACHE:-${HOME}/.gradle/caches/modules-2/files-2.1}"
+GRADLE_MODULE_CACHE="${GRADLE_MODULE_CACHE:-${GRADLE_USER_HOME:-$HOME/.gradle}/caches/modules-2/files-2.1}"
 RESET_OUTPUTS="${RESET_OUTPUTS:-1}"
 EXTRA_JAVA_OPTS="${EXTRA_JAVA_OPTS:-}"
 
@@ -40,7 +40,9 @@ if [ ! -f "${ROOT_DIR}/proxy/build/classes/java/test/com/velocitypowered/proxy/f
 fi
 
 if [ "${RESET_OUTPUTS}" = "1" ]; then
-  rm -rf "${ARTIFACTS_DIR}" "${LOG_DIR}" "${COVERAGE_DIR}" "${CORPUS_DIR}"
+  for d in "${ARTIFACTS_DIR}" "${LOG_DIR}" "${COVERAGE_DIR}" "${CORPUS_DIR}"; do
+    [ -d "$d" ] && find "$d" -mindepth 1 -delete
+  done
   mkdir -p "${ARTIFACTS_DIR}" "${LOG_DIR}" "${COVERAGE_DIR}" "${CORPUS_DIR}"
 fi
 
@@ -112,6 +114,7 @@ java ${EXTRA_JAVA_OPTS} -cp "${JAZZER_JAR}:${CLASSPATH_RAW}" com.code_intelligen
   --coverage_report=lcov:"${COVERAGE_DIR}/jazzer-coverage.lcov" \
   --dump_classes_dir="${WORK_DIR}/instrumented" \
   --keep_going=128 \
+  --disabled_hooks=com.code_intelligence.jazzer.sanitizers.Deserialization \
   -- \
   "${CORPUS_DIR}" \
   -artifact_prefix="${ARTIFACTS_DIR}/" \

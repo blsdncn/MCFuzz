@@ -49,7 +49,9 @@ docker run --rm mcfuzz-aflnet-experiment:ready make test
 
 ```bash
 docker run --rm -it \
-  -v "$PWD/outputs:/work/outputs" \
+  -e WORK_DIR=/work/jazzer-campaign \
+  -v "$PWD/campaign-runs:/work/campaign-runs" \
+  -v "$PWD/jazzer-campaign:/work/jazzer-campaign" \
   mcfuzz-aflnet-experiment:ready \
   bash
 ```
@@ -62,6 +64,8 @@ make smoke-aflnet
 CAMPAIGN_SECONDS=600 scripts/run-aflnet-campaign-smoke.sh
 cd velocity-jazzer-integration && TIME_LIMIT=600 RESET_OUTPUTS=1 scripts/run-jazzer-direct.sh
 ```
+
+The mounts above ensure that the AFLNet campaign outputs (under `/work/campaign-runs`) and the Jazzer campaign outputs (under `/work/jazzer-campaign`, via `WORK_DIR`) appear on your host after the container exits.
 
 ### Volume mounts explained
 
@@ -81,7 +85,7 @@ Common mount points:
 |---|---|
 | `/work/campaign-runs` | AFLNet fuzzing campaigns |
 | `/work/velocity-jazzer-integration/build/jazzer-jacoco-feasibility` | Jazzer smoke outputs (feasibility-summary.txt, jazzer.exec, JaCoCo XML/HTML report) |
-| `/work/outputs` | Generic output directory |
+| `/work/jazzer-campaign` | Jazzer campaign outputs (with `-e WORK_DIR=/work/jazzer-campaign`) |
 
 If you omit `-v`, all artifacts are lost when the container exits.
 
