@@ -28,13 +28,13 @@ docker run --rm \
 ```bash
 docker run --rm \
   -e TIME_LIMIT=30 \
-  -v "$PWD/jazzer-outputs:/work/velocity-jazzer-integration/build/jazzer" \
+  -v "$PWD/jazzer-outputs:/work/velocity-jazzer-integration/build/jazzer-jacoco-feasibility" \
   mcfuzz-aflnet-experiment:ready \
   make smoke-jazzer-stateful
 
 docker run --rm \
   -e TIME_LIMIT=30 \
-  -v "$PWD/jazzer-outputs:/work/velocity-jazzer-integration/build/jazzer" \
+  -v "$PWD/jazzer-outputs:/work/velocity-jazzer-integration/build/jazzer-jacoco-feasibility" \
   mcfuzz-aflnet-experiment:ready \
   make smoke-jazzer-stateless
 ```
