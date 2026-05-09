@@ -3,7 +3,6 @@ import io.papermc.fill.model.BuildChannel
 
 plugins {
     application
-    id("velocity-init-manifest")
     alias(libs.plugins.shadow)
     alias(libs.plugins.fill)
 }
